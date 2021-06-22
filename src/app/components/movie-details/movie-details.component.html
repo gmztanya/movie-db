@@ -1,0 +1,106 @@
+<div *ngIf="movieDetails!=undefined && !spinner">
+    <div *ngIf="movieDetails.Response === 'True'">
+        <mat-card class="col-12 marginTop-10">
+            <mat-card-content>
+                <div class="row">
+                    <div class="col-12" *ngIf="key === 'episode'">
+                        <h4>
+                            <a (click)="goBack()">
+                                <mat-icon style="font-size: x-large; position:absolute">keyboard_arrow_left</mat-icon>
+                                <strong class="icon-text">Go Back</strong>
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <img [src]="movieDetails.Poster" class="full-width" *ngIf="movieDetails.Poster !=='N/A'">
+                        <img src="https://www.mediaonmars.com.au/wp-content/uploads/2010/08/movie_poster_rant-310x310.png" class="full-width" *ngIf="movieDetails.Poster ==='N/A'"/>
+                    </div>
+                    <div class="col-12 col-sm-8 short-details">
+                        <h1 *ngIf="key === 'episode'">  {{fullTitle+" S"+season+"E"+episode+" : "}} </h1>
+                        <h1> {{movieDetails.Title}} <span style="font-size: 16px;">({{movieDetails.Year}})</span> </h1>
+                        <p><strong>IMDb Rating: </strong>{{ movieDetails.Ratings[0]?.Value }}</p>
+                        <p><strong>Genre: </strong> {{movieDetails.Genre}}</p>
+                        <p><strong>Language: </strong> {{movieDetails.Language}}</p>
+                        <p><strong>Rated: </strong> {{movieDetails.Rated +" "+ movieDetails.Type}}</p>
+                        <p *ngIf="movieDetails.totalSeasons && movieDetails.totalSeasons!=='N/A'">Total Seasons: <a href="javascript:void(0);" (click)="loadSeasons()">{{movieDetails.totalSeasons}} Seasons</a></p>
+                        <mat-divider></mat-divider>
+                        <h4><strong>Plot</strong></h4>
+                        <p>{{movieDetails.Plot}}</p>
+                        <mat-divider></mat-divider>
+                        <ul class="list-inline">
+                            <strong>Directors: </strong> <li class="list-inline-item">{{movieDetails.Director}}</li>
+                        </ul>
+                        <ul class="list-inline">
+                            <strong>Writers: </strong> <li class="list-inline-item" *ngFor="let writer of movieDetails.WriterArr">{{writer}}</li>
+                        </ul>
+                        <ul class="list-inline">
+                            <strong>Actors: </strong> <li class="list-inline-item" *ngFor="let actor of movieDetails.ActorsArr">{{actor}}</li>
+                        </ul>
+                        <mat-divider></mat-divider>
+                        <div class="search-list-link" *ngIf="key !== 'episode'">
+                            <a href="javascript:void(0);" (click)="setList.emit()">Not what you're looking for ? <strong>See More Results</strong></a>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <div>
+            <div class="full-width more-details">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        More Information
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    
+                    <table class="table table-borderless more-details">
+                      <tbody>
+                        <tr>
+                          <td><strong>Released</strong></td>
+                          <td><p>{{movieDetails.Released}}</p></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Runtime</strong></td>
+                          <td><p>{{movieDetails.Runtime}}</p></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Country</strong></td>
+                          <td><p>{{movieDetails.Country}}</p></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Awards</strong></td>
+                          <td><p>{{movieDetails.Awards}}</p></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Ratings</strong></td>
+                          <td>
+                            <p *ngFor="let rating of movieDetails.Ratings"><strong>{{rating.Source+": "}}</strong>{{rating.Value}}</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                
+                </mat-expansion-panel>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="movieDetails.Response === 'False'">
+        <div class="col-12">
+            <div class="alert alert-danger">
+                <strong>Error!</strong> {{movieDetails.Error}}. 
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="spinner">
+    <div class="col-12 marginTop-10">
+        <div>
+            <mat-progress-spinner
+                class="example-margin"
+                color="primary" class="center"
+                mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div>
+</div>

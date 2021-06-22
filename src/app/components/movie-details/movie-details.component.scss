@@ -1,0 +1,41 @@
+mat-expansion-panel {
+    margin: 5px 2px;
+}
+
+.more-details td{
+    color: #fff;
+}
+
+.short-details {
+    strong{
+        margin-right: 5px;
+    }
+
+    h1{
+        font-weight: bolder;
+    }
+
+    mat-divider{
+        margin-bottom: 10px;
+        position: relative!important;
+        border-color: #5dee5d6b;
+    }
+
+    li + li::before{
+        display: inline-block;
+        content: '\2022';
+        font-size: 1rem;
+        color: purple;
+        line-height: .5rem;
+        padding: 0 .5rem .1rem .5rem;
+        vertical-align: middle;
+    }
+}
+
+.search-list-link {
+    margin-top: 20px;
+
+    a {
+        font-size: 16px;
+    }
+}

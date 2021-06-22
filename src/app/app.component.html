@@ -1,0 +1,26 @@
+<div>
+  <app-header></app-header>
+  <div class="container">
+    <div class="row">
+      
+      <app-search-movie (titleSearchStr)="getDetails($event,'title')"></app-search-movie>
+
+      <app-movie-details *ngIf="showDetails && !showMovieList" 
+        [movieTitle]="searchTitle" (showSeasons)="loadSeasons($event)" (setList)="searchForList()"></app-movie-details>
+      
+      <app-movie-list *ngIf="showDetails && showMovieList" [movieTitle]="searchTitle"  
+        (onSearchSelect)="getDetails($event,'imdb')"></app-movie-list>
+
+      <div class="col-12 card-gaps">
+        <router-outlet></router-outlet>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<button title="scroll to top" mat-fab color="accent" class="scroll-button" aria-label="Scroll Button" *ngIf="showOption" (click)="scrollToTop()">
+  <mat-icon>keyboard_arrow_up</mat-icon>
+</button>
+
+

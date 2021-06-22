@@ -1,0 +1,25 @@
+.load-more{
+    text-align: center;
+    margin: 25px;
+}
+
+.list-card{
+    margin: 10px 0;
+
+    .mat-card {
+        cursor: pointer;
+        &:hover {
+            border: 1px solid #56ff00;
+            background: linear-gradient(to bottom right, #33691e, black);
+        }
+    }
+
+    h4 {
+        height: 50px;
+        overflow: hidden;
+    }
+
+    .mat-card-image {
+        height: 300px;
+    }
+}

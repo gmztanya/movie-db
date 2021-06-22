@@ -1,0 +1,118 @@
+
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../node_modules/bootstrap/scss/mixins/breakpoints.scss';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import '../node_modules/@angular/material/theming.scss';
+
+@include mat-core();
+
+// DARK THEME
+$dark-primary: mat-palette($mat-light-green);
+$dark-accent:  mat-palette($mat-purple, A200, A100, A400);
+$dark-warn:    mat-palette($mat-deep-orange);
+$dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+@include angular-material-theme($dark-theme);
+
+body { 
+    margin: 0; 
+    font-family: Arial, Helvetica, sans-serif !important; 
+    color: #ccc;
+}
+
+.dark-body {
+    background-image: #000;
+    background-color: #000;
+}
+
+.card-gaps {
+    margin: 10px 0;
+}
+
+.marginTop-10 {
+    margin-top: 10px;
+}
+.marginBottom-10{
+    margin-bottom: 10px;
+}
+
+a, a:not([href]):not([class]){
+    cursor: pointer;
+    color: #0dbbfd;
+    text-decoration: none;
+}
+
+a:not([href]):not([class]):hover{
+    color: #082cca;
+}
+
+strong{
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 36px;
+}
+.center {
+    margin: 0 auto;
+}
+.full-width{
+    width: 100%;
+}
+.no-margin {
+    margin: 0;
+}
+
+.icon-text {
+    display: inline-block;
+    margin-left: 30px;
+}
+.text-right{
+    text-align: right;
+}
+
+.mat-form-field{
+    line-height: 1.5;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 1.5em;
+}
+
+.mat-card, .mat-expansion-panel, .mat-paginator{
+    background: #1b151c;
+    color: #fff;
+}
+
+.snackbar-msg{
+    background-color: #8bc34a;
+    .mat-simple-snackbar{
+        text-align: center;
+        display:block;
+    }
+}
+
+@include media-breakpoint-down(xs) { 
+
+    .short-details{
+        margin-top: 20px;
+    }
+
+    .list-card{   
+        .mat-card-image {
+            height: auto;
+        }
+    }
+}
+@include media-breakpoint-down(sm) { 
+    .movie-form-field {
+        margin-bottom: 20px;
+    }
+}
+@include media-breakpoint-up(lg) { 
+    .list-card{   
+        .mat-card-image {
+            height: 350px;
+        }
+    }
+}

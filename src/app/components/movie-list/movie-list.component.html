@@ -1,0 +1,50 @@
+<div id="movie-list">  
+    <div *ngIf="movieList!=undefined">
+        <div *ngIf="movieList.Response === 'True'">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Select your desired title</h2>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 list-card" *ngFor="let item of movieList.Search">
+                    <mat-card (click)="onSearchSelect.emit(item.imdbID)">
+                        <img mat-card-image [src]="item.Poster" *ngIf="item.Poster !=='N/A'" />
+                        <img mat-card-image src="https://www.mediaonmars.com.au/wp-content/uploads/2010/08/movie_poster_rant-310x310.png" *ngIf="item.Poster ==='N/A'"/>
+                        <mat-card-content>
+                            <h4 class="text-center"><strong>{{item.Title}}</strong> ({{item.Year}})</h4>
+                            <p class="text-center">{{item.Type | uppercase}}</p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="movieList.Response === 'False'" class="row">
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    <strong>Error!</strong> {{movieList.Error}}. 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="spinner" class="row">
+        <div class="col-12">
+            <mat-progress-bar mode="indeterminate" class="center"></mat-progress-bar>
+        </div>
+    </div>
+
+    <div *ngIf="length > 10" class="row">
+        <div class="col-12 load-more">
+            <!-- <mat-paginator [length] = "length"  hidePageSize
+                [pageSize] = "pageSize"  
+                (page)="onChangePage($event)">  
+            </mat-paginator>  -->
+            <h4>
+                <a (click)="onLoadMore()">
+                    <strong class="icon-text">Load More</strong>
+                    <mat-icon style="font-size: x-large; position:absolute">keyboard_arrow_down</mat-icon>
+                </a>
+            </h4>
+        </div>
+    </div>
+     
+</div>

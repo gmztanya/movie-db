@@ -1,0 +1,46 @@
+<div class="col-12 card-gaps m-top5 marginBottom-10" id="search">  
+    <h2>Search for your favourite Movie/Series</h2>
+    <form [formGroup]="advSearchForm" (ngSubmit)="search(advSearchForm.value)">
+        <div class="row">
+            <div class="col-12 col-sm-2 col-md-2">
+                <mat-form-field class="full-width">
+                    <!-- <mat-label>Type</mat-label> -->
+                    <mat-select formControlName="type">
+                        <mat-option *ngFor="let type of searchType" [value]="type.key">
+                            {{type.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-2 col-md-2">
+                <mat-form-field class="full-width">
+                    <!-- <mat-label>Year</mat-label> -->
+                    <input matInput placeholder="Year" autocomplete="off" formControlName="year">
+                    <mat-error *ngIf="advSearchForm.get('year').hasError('regExError')">Only numbers are accepted</mat-error>
+                    <mat-error *ngIf="advSearchForm.get('year').hasError('max') && !advSearchForm.get('year').hasError('regExError')">Maximum Year can be 3000</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-sm-8 col-md-8">
+                <mat-form-field class="full-width">
+                    <!-- <mat-label>Title</mat-label> -->
+                    <input placeholder="Title" type="text" matInput required autocomplete="off" formControlName="title" 
+                        (input)="autoSuggest(advSearchForm.get('title').valid, advSearchForm.get('title').value)">
+                    <button matSuffix mat-icon-button aria-label="Clear" [disabled]="advSearchForm.invalid">
+                        <mat-icon style="font-size: x-large">search</mat-icon>
+                    </button>
+                    <mat-error *ngIf="advSearchForm.get('title').hasError('required')">Please enter the title</mat-error>
+                    <mat-error *ngIf="advSearchForm.get('title').hasError('minlength')">Enter atleast 1 characters</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <!-- suggestions -->
+    <div class="marginTop-10 marginBottom-10" *ngIf="{'suggestions':(autoSuggestion$ | async)} as suggested">
+        <h4 *ngIf="suggested.suggestions" >More like this:</h4>
+        <mat-chip-list aria-label="Titles" class="marginTop-10" style="display: block;">
+            <mat-chip color="primary" class="text-truncate" selected *ngFor="let title of suggested.suggestions" (click)="search({'title':title.Title})">{{title.Title}}</mat-chip>
+        </mat-chip-list>
+    </div>
+</div>
+
+

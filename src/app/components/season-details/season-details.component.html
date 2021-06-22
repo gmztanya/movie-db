@@ -1,0 +1,45 @@
+<div *ngIf="pageLoad!=undefined && !spinner">
+    <div>
+        <mat-card class="col-12">  
+            <mat-card-content>
+                <h2>{{Title}} (Seasons)</h2>
+            </mat-card-content>  
+        </mat-card>
+    </div>
+    <div>
+        <div class="full-width marginTop-10">
+            <mat-accordion>
+                <mat-expansion-panel (afterExpand)="getSeasons(item.SeasonNo+1)" *ngFor="let item of seasonData">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                        Season {{item.SeasonNo+1}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div *ngIf="!item.Spinner && item.SeasonObject?.Response == 'True'">
+                        <mat-list>
+                            <mat-list-item *ngFor="let episode of item.SeasonObject?.Episodes" (click)="loadEpisode(item.SeasonNo+1,episode.Episode)">
+                                <i class="material-icons icon-color">keyboard_arrow_right</i>
+                                <p style="margin:0px"> {{episode.Episode+". "+episode.Title}} </p>  
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                    <div *ngIf="!item.Spinner && item.SeasonObject?.Response == 'False'"> 
+                        <div class="alert alert-danger">
+                            <strong>Error!</strong> {{item.SeasonObject?.Error}}. 
+                        </div>
+                    </div>
+                    <div *ngIf="item.Spinner">
+                        <mat-progress-bar mode="indeterminate" class="center"></mat-progress-bar>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>
+<div *ngIf="spinner">
+    <div class="col-12">  
+        <mat-progress-bar mode="indeterminate" class="center"></mat-progress-bar>
+    </div>
+</div>
